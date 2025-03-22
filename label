@@ -1,0 +1,138 @@
+if game:GetService("Players").LocalPlayer.PlayerGui.Bounty:FindFirstChild("ScreenGui") then
+    game:GetService("Players").LocalPlayer.PlayerGui.Bounty:FindFirstChild("ScreenGui"):Destroy()
+end
+if _G.Connection then _G.Connection:Disconnect() end
+function root(v)
+    if not v.Character:FindFirstChild(v.Name) then
+        if v.Character:FindFirstChild('HumanoidRootPart') then
+            return v.Character.HumanoidRootPart
+        else
+            return v.Character.UpperTorso
+        end
+    else
+        if not v.Character:FindFirstChild('HumanoidRootPart') then
+            return v.Character:FindFirstChild(v.Name).HumanoidRootPart
+        else
+            return v.Character.HumanoidRootPart
+        end
+    end
+end
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game:GetService("Players").LocalPlayer.PlayerGui.Bounty
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 360, 0, 40)
+frame.Position = UDim2.new(0.0500000007, 275, 0.0500000007, -93)
+frame.BackgroundColor3 = Color3.fromRGB(75, 0, 130)
+frame.BackgroundTransparency = 0.2
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = frame
+
+local uiGradient = Instance.new("UIGradient")
+uiGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(146, 186, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(75, 0, 130))
+}
+uiGradient.Rotation = 45
+uiGradient.Parent = frame
+
+task.spawn(function()
+    while frame.Parent do
+        uiGradient.Rotation = uiGradient.Rotation + 2
+        task.wait(0.05)
+    end
+end)
+
+local velocityLabel = Instance.new("TextLabel")
+velocityLabel.Size = UDim2.new(0.22, 0, 1, 0)
+velocityLabel.Position = UDim2.new(0, 0, 0, 0)
+velocityLabel.BackgroundTransparency = 1
+velocityLabel.TextColor3 = Color3.new(1, 1, 1)
+velocityLabel.Font = Enum.Font.GothamBold
+velocityLabel.TextScaled = true
+velocityLabel.TextXAlignment = Enum.TextXAlignment.Right
+velocityLabel.Parent = frame
+
+local velocityStroke = Instance.new("UIStroke")
+velocityStroke.Thickness = 1.2
+velocityStroke.Color = Color3.fromRGB(200, 200, 255)
+velocityStroke.Parent = velocityLabel
+
+local divider1 = Instance.new("Frame")
+divider1.Size = UDim2.new(0, 2, 0.7, 0)
+divider1.Position = UDim2.new(0.23, -1, 0.15, 0)
+divider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+divider1.BackgroundTransparency = 0.4
+divider1.Parent = frame
+
+local pingLabel = Instance.new("TextLabel")
+pingLabel.Size = UDim2.new(0.22, 0, 1, 0)
+pingLabel.Position = UDim2.new(0.25, 0, 0, 0)
+pingLabel.BackgroundTransparency = 1
+pingLabel.TextColor3 = Color3.new(1, 1, 1)
+pingLabel.Font = Enum.Font.GothamBold
+pingLabel.TextScaled = true
+pingLabel.TextXAlignment = Enum.TextXAlignment.Left
+pingLabel.Parent = frame
+
+local pingStroke = Instance.new("UIStroke")
+pingStroke.Thickness = 1.2
+pingStroke.Color = Color3.fromRGB(200, 200, 255)
+pingStroke.Parent = pingLabel
+
+local divider2 = Instance.new("Frame")
+divider2.Size = UDim2.new(0, 2, 0.7, 0)
+divider2.Position = UDim2.new(0.48, -1, 0.15, 0)
+divider2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+divider2.BackgroundTransparency = 0.4
+divider2.Parent = frame
+
+local maxPlayerLabel = Instance.new("TextLabel")
+maxPlayerLabel.Size = UDim2.new(0.22, 0, 1, 0)
+maxPlayerLabel.Position = UDim2.new(0.50, 0, 0, 0)
+maxPlayerLabel.BackgroundTransparency = 1
+maxPlayerLabel.TextColor3 = Color3.new(1, 1, 1)
+maxPlayerLabel.Font = Enum.Font.GothamBold
+maxPlayerLabel.TextScaled = true
+maxPlayerLabel.TextXAlignment = Enum.TextXAlignment.Left
+maxPlayerLabel.Parent = frame
+
+local maxPlayerStroke = Instance.new("UIStroke")
+maxPlayerStroke.Thickness = 1.2
+maxPlayerStroke.Color = Color3.fromRGB(200, 200, 255)
+maxPlayerStroke.Parent = maxPlayerLabel
+
+local divider3 = Instance.new("Frame")
+divider3.Size = UDim2.new(0, 2, 0.7, 0)
+divider3.Position = UDim2.new(0.73, -1, 0.15, 0)
+divider3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+divider3.BackgroundTransparency = 0.4
+divider3.Parent = frame
+
+local dateTimeLabel = Instance.new("TextLabel")
+dateTimeLabel.Size = UDim2.new(0.22, 0, 1, 0)
+dateTimeLabel.Position = UDim2.new(0.75, 0, 0, 0)
+dateTimeLabel.BackgroundTransparency = 1
+dateTimeLabel.TextColor3 = Color3.new(1, 1, 1)
+dateTimeLabel.Font = Enum.Font.GothamBold
+dateTimeLabel.TextScaled = true
+dateTimeLabel.TextXAlignment = Enum.TextXAlignment.Left
+dateTimeLabel.Parent = frame
+
+local dateTimeStroke = Instance.new("UIStroke")
+dateTimeStroke.Thickness = 1.2
+dateTimeStroke.Color = Color3.fromRGB(200, 200, 255)
+dateTimeStroke.Parent = dateTimeLabel
+
+_G.Connection = game:GetService("RunService").RenderStepped:Connect(function()
+    velocityLabel.Text = tostring(math.floor(root(game.Players.LocalPlayer).Velocity.Magnitude or 0))
+    pingLabel.Text = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+    maxPlayerLabel.Text = tostring(#game.Players:GetPlayers()) .. "/" .. tostring(game.Players.MaxPlayers)
+    dateTimeLabel.Text = os.date("%H:%M:%S")
+end)
